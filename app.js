@@ -8,7 +8,6 @@ const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 const { uuid } = require("uuidv4");
 const Telegram = require("./models/Telegram");
 
-
 const app = express();
 
 // Middleware
@@ -85,6 +84,8 @@ app.post("/checkout", async (req, res) => {
   res.json({ error, status });
 });
 
+mongoose.set('useUnifiedTopology', true);
+
 // Connect to DB
 mongoose.connect(
   process.env.DB_CONNECTION,
@@ -92,6 +93,5 @@ mongoose.connect(
   () => console.log('Connected to DB!')
 );
 
-
 // Listen to the server
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
